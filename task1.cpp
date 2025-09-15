@@ -26,7 +26,6 @@ int main() {
         std::cout << std::endl;
     }
 
-    // Динамическое программирование (снизу вверх)
     std::vector<std::vector<int>> dp = pyramid;
     for (int i = N - 2; i >= 0; i--) {
         for (int j = 0; j <= i; j++) {
@@ -34,7 +33,6 @@ int main() {
         }
     }
 
-    // Восстановление пути
     std::vector<int> path;
     int current_j = 0;
     path.push_back(pyramid[0][current_j]);
@@ -57,3 +55,4 @@ int main() {
 
     return 0;
 }
+
