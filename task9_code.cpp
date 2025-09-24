@@ -14,18 +14,27 @@ void setup() {
 }
 
 void loop() {
-  int value_photo = analogRead(PHOTO_PIN);
+  const float GAMMA = 0.7;
+  const float RL10 = 50;
 
-  if (value_photo < 245) {
+  int analogValue = analogRead(PHOTO_PIN);
+  float voltage = analogValue / 1024. * 5;
+  float resistance = 2000 * voltage / (1 - voltage / 5);
+  float lux = pow(RL10 * 1e3 * pow(10, GAMMA) / resistance, (1 / GAMMA));
+
+  if (lux > 512) {
     digitalWrite(LED_PIN_RED, LOW);
     digitalWrite(LED_PIN_GREEN, HIGH);
     Serial.println("OPEN");
 
     delay(3000);
 
-    int value_photo = analogRead(PHOTO_PIN);    
+    int analogValue = analogRead(PHOTO_PIN);
+    float voltage = analogValue / 1024. * 5;
+    float resistance = 2000 * voltage / (1 - voltage / 5);
+    float lux = pow(RL10 * 1e3 * pow(10, GAMMA) / resistance, (1 / GAMMA));   
 
-    if (value_photo < 245) {
+    if (lux > 512) {
       digitalWrite(LED_PIN_RED, LOW);
       digitalWrite(LED_PIN_GREEN, HIGH);
     } else {
